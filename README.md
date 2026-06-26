@@ -3,7 +3,7 @@
   <img src="images/screenshot-dark.png" width="48%">
   <img src="images/screenshot.png" width="48%">
 </p>
-## Overview
+Overview
 
 Project FluentAI is a Universal Windows Platform (UWP) application designed to provide a modern, responsive AI assistant experience on Windows 10 and 11. It integrates with both Google Gemini and local Ollama models, offering a flexible and powerful conversational AI interface. The application features a clean, Windows 10-inspired user interface, robust conversation management, and customizable settings for AI model selection and application theme.
 
