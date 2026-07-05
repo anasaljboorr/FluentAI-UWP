@@ -1,0 +1,112 @@
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\App.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\MainPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Views\ChatPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Views\SettingsPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Project FluentAI.xr.xml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Project FluentAI.pdb
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\resources.pri
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\AppxManifest.xml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Core\AppxManifest.xml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Core\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Project FluentAI.build.appxrecipe
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\System.Runtime.dll
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\bin\x86\Debug\Microsoft.UI.Xaml.Markup.winmd
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\App.g.i.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\App.g.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\MainPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\MainPage.g.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\ChatPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\ChatPage.g.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\SettingsPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\SettingsPage.g.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\XamlTypeInfo.g.cs
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\App.xaml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\MainPage.xaml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\ChatPage.xaml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\SettingsPage.xaml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\App.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\MainPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\ChatPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Views\SettingsPage.xbf
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\XamlSaveStateFile.xml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.CoreCompileInputs.cache
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.CopyComplete
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Project FluentAI.pdb
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\ResourceHandlingTask.state
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\priconfig.xml
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\priconfig.xml.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\unfiltered.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\unfiltered.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\filtered.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\filtered.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\excluded.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\excluded.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\resources.resfiles
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\resources.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\pri.resfiles
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\pri.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\qualifiers.txt
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\qualifiers.txt.intermediate
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_638773359680000000.json
+C:\Users\Xiefn Yu\source\repos\ProjectFluentAI\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.AssemblyReference.cache
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\App.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\MainPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Views\ChatPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Views\SettingsPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Project FluentAI.xr.xml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Project FluentAI.pdb
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\resources.pri
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\AppxManifest.xml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Core\AppxManifest.xml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Core\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Project FluentAI.build.appxrecipe
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\System.Runtime.dll
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\bin\x86\Debug\Microsoft.UI.Xaml.Markup.winmd
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.AssemblyReference.cache
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\App.g.i.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\App.g.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\MainPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\MainPage.g.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\ChatPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\ChatPage.g.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\SettingsPage.g.i.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\SettingsPage.g.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\XamlTypeInfo.g.cs
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\App.xaml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\MainPage.xaml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\ChatPage.xaml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\SettingsPage.xaml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\App.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\MainPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\ChatPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Views\SettingsPage.xbf
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\XamlSaveStateFile.xml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.CoreCompileInputs.cache
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Project FluentAI.csproj.CopyComplete
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Project FluentAI.exe
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\Project FluentAI.pdb
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\ResourceHandlingTask.state
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\priconfig.xml
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\priconfig.xml.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\unfiltered.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\unfiltered.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\filtered.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\filtered.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\excluded.layout.resfiles
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\excluded.layout.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\resources.resfiles
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\resources.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\pri.resfiles
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\pri.resfiles.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\qualifiers.txt
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\qualifiers.txt.intermediate
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\Xiefn Yu\source\repos\FluentAI-UWP-main\Project FluentAI\obj\x86\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_638773359680000000.json
