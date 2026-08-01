@@ -7,7 +7,8 @@
     xmlns:models="using:Project_FluentAI.Models"
     xmlns:helpers="using:Project_FluentAI.Helpers"
     mc:Ignorable="d"
-    Background="Transparent">
+    Background="Transparent"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <helpers:UserToAlignmentConverter x:Key="UserToAlignmentConverter"/>
@@ -18,18 +19,9 @@
             <!-- Grid with transparent background ensures the entire message row/area can catch right-clicks -->
             <Grid Margin="0,4,0,12" 
                   Background="Transparent"
-                  HorizontalAlignment="{x:Bind IsUser, Converter={StaticResource UserToAlignmentConverter}}">
-                <Grid.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Copy Message"
-                                        Icon="Copy"
-                                        Click="CopyMessage_Click"/>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="Delete Message"
-                                        Icon="Delete"
-                                        Click="DeleteMessage_Click"/>
-                    </MenuFlyout>
-                </Grid.ContextFlyout>
+                  HorizontalAlignment="{x:Bind IsUser, Converter={StaticResource UserToAlignmentConverter}}"
+                  RightTapped="Message_RightTapped"
+                  Holding="Message_Holding">
                 <Border Background="{x:Bind IsUser, Converter={StaticResource UserToBackgroundConverter}}"
                         CornerRadius="4" Padding="12,8" MaxWidth="500">
                     <TextBlock Text="{x:Bind Content, Mode=OneWay}"
@@ -53,8 +45,7 @@
               VerticalAlignment="Stretch">
 
             <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Spacing="12">
+                        VerticalAlignment="Center">
 
                 <!-- Native Fluent Design chat icon (Segoe MDL2 Assets / Fluent Icons)
                      - Glyph &#xE8BD; is the standard 'Message' icon
@@ -96,7 +87,7 @@
              ═══════════════════════════════════════════════════════════════════ -->
         <Grid x:Name="ChatPanel"
               Visibility="Collapsed"
-              Padding="40,32,40,32">
+              Margin="0,32,0,0">
 
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup>
@@ -110,10 +101,12 @@
                             <AdaptiveTrigger MinWindowWidth="0"/>
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
-                            <Setter Target="ChatPanel.Padding" Value="16,20,16,20"/>
-                            <Setter Target="ChatTitle.Margin" Value="0,0,0,16"/>
+                            <Setter Target="ChatPanel.Margin" Value="0,20,0,0"/>
+                            <Setter Target="ChatTitle.Margin" Value="16,0,16,16"/>
                             <Setter Target="ChatTitle.FontSize" Value="24"/>
+                            <Setter Target="MessageListView.Margin" Value="16,0,16,0"/>
                             <Setter Target="InputArea.Margin" Value="0,16,0,0"/>
+                            <Setter Target="InputBox.Margin" Value="8,0,8,0"/>
                             <Setter Target="SendButton.Padding" Value="16,4,16,6"/>
                             <Setter Target="SendButton.Width" Value="70"/>
                         </VisualState.Setters>
@@ -131,10 +124,11 @@
                        Text=""
                        FontSize="28"
                        FontWeight="Light"
-                       Margin="0,0,0,32"/>
+                       Margin="40,0,40,32"/>
 
             <ListView Grid.Row="1" x:Name="MessageListView"
                       SelectionMode="None"
+                      Margin="40,0,40,0"
                       ItemTemplate="{StaticResource MessageTemplate}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -144,32 +138,39 @@
                 </ListView.ItemContainerStyle>
             </ListView>
 
-            <Grid x:Name="InputArea" Grid.Row="2" Margin="0,24,0,0">
+            <!-- Cortana-style Unified Input Bar -->
+            <Grid x:Name="InputArea" Grid.Row="2" Margin="0,24,0,0" Height="48">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                
+                <!-- Background for the bar -->
+                <Border x:Name="InputBarBackground" Grid.ColumnSpan="2" 
+                        Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}"/>
 
-                <StackPanel>
-                    <TextBlock Text="Ask a question" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox x:Name="InputBox"
-                             PlaceholderText="Type your message here..."
-                             AcceptsReturn="True"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             KeyDown="InputBox_KeyDown"/>
-                </StackPanel>
+                <!-- Main Input Box (Edge to edge within the bar) -->
+                <TextBox x:Name="InputBox" 
+                         Grid.Column="0"
+                         PlaceholderText="Ask me anything"
+                         Style="{StaticResource CortanaTextBoxStyle}"
+                         VerticalAlignment="Center"
+                         Margin="12,0,12,0"
+                         AcceptsReturn="False"/>
 
-                <Button x:Name="SendButton"
+                <!-- Send Button (Accent Color) -->
+                <Button x:Name="SendButton" 
                         Grid.Column="1"
-                        Content="Send"
-                        Style="{StaticResource AccentButtonStyle}"
-                        Margin="12,0,0,0"
-                        VerticalAlignment="Bottom"
-                        Padding="24,4,24,6"
-                        Click="SendButton_Click"
+                        Width="48" Height="48"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        Style="{StaticResource SidebarButtonStyle}"
                         Background="{ThemeResource SystemControlHighlightAccentBrush}"
-                        Height="32" Width="84"/>
+                        Click="SendButton_Click">
+                    <FontIcon Glyph="&#xE724;" 
+                              FontSize="18" 
+                              Foreground="White"/>
+                </Button>
             </Grid>
         </Grid>
 

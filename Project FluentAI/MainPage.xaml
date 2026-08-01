@@ -30,30 +30,18 @@
             <TextBlock x:Name="AppTitle" Text="FluentAI" VerticalAlignment="Center" Margin="12,0,0,0" Style="{StaticResource CaptionTextBlockStyle}" Visibility="Collapsed"/>
         </Grid>
 
-        <NavigationView Grid.RowSpan="2" x:Name="NavView"
-                        DisplayModeChanged="NavView_DisplayModeChanged"
-                        IsSettingsVisible="True"
-                        PaneDisplayMode="Left"
-                        IsBackButtonVisible="Collapsed"
-                        Header="FluentAI"
-                        ItemInvoked="NavView_ItemInvoked"
-                        ExpandedModeThresholdWidth="641"
-                        Background="Transparent">
-            <!-- Add top padding to the header to avoid overlap with title bar buttons -->
-            <NavigationView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,32,0,0">
-                        <TextBlock Text="{Binding}" Style="{StaticResource TitleTextBlockStyle}"/>
-                    </Grid>
-                </DataTemplate>
-            </NavigationView.HeaderTemplate>
+        <SplitView Grid.RowSpan="2" x:Name="ShellSplitView"
+                   DisplayMode="Inline"
+                   IsPaneOpen="True"
+                   OpenPaneLength="300"
+                   CompactPaneLength="0"
+                   PaneBackground="Transparent">
 
-            <!-- PaneCustomContent fills the area above the built-in Settings footer.
-                 Row 3 is a star-height ScrollViewer so the chat list scrolls
-                 independently and never pushes the Settings item off-screen. -->
-            <NavigationView.PaneCustomContent>
-                <Grid Margin="0,12,0,0">
+            <SplitView.Pane>
+                <Grid x:Name="SidebarRoot" Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
                     <Grid.RowDefinitions>
+                        <!-- Hamburger Menu Area -->
+                        <RowDefinition Height="Auto"/>
                         <!-- New Chat button -->
                         <RowDefinition Height="Auto"/>
                         <!-- Search box -->
@@ -62,98 +50,131 @@
                         <RowDefinition Height="Auto"/>
                         <!-- Scrollable chat list -->
                         <RowDefinition Height="*"/>
+                        <!-- Settings footer -->
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Hamburger Button (Top Left) -->
+                    <Button x:Name="HamburgerButton"
+                            Content="&#xE700;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="16"
+                            Width="48" Height="48"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BackButton_Click"
+                            Margin="4,4,0,0"/>
+
                     <!-- New Chat Button -->
-                    <NavigationViewItem x:Name="NewChatButton"
-                                        Icon="Add"
-                                        Content="New Chat"
-                                        Tapped="NewChatButton_Tapped"
-                                        Margin="4,0,4,12"/>
+                    <Button Grid.Row="1"
+                            x:Name="NewChatButton"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="NewChatButton_Click"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,8,0,12">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE710;" FontSize="16" Margin="4,0,12,0"/>
+                            <TextBlock Text="New Chat" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
 
                     <!-- Search Box -->
-                    <AutoSuggestBox Grid.Row="1"
+                    <AutoSuggestBox Grid.Row="2"
                                     x:Name="ChatSearchBox"
                                     PlaceholderText="Find a chat"
                                     QueryIcon="Find"
-                                    Margin="16,0,16,32"
-                                    Width="Auto"
-                                    MaxWidth="268"
+                                    Margin="16,0,16,24"
                                     HorizontalAlignment="Stretch"
                                     TextChanged="ChatSearchBox_TextChanged"/>
 
                     <!-- Chats Section Header -->
-                    <TextBlock Grid.Row="2"
+                    <TextBlock Grid.Row="3"
                                x:Name="ChatsHeader"
                                Text="Chats"
                                Style="{StaticResource BaseTextBlockStyle}"
                                FontWeight="SemiBold"
-                               Margin="16,0,0,12"
+                               Margin="16,0,0,8"
                                FontSize="14"/>
 
-                    <!-- Scrollable chat list.
-                         The ScrollViewer clips the ListView so it never grows
-                         beyond the available pane height. The NavigationView
-                         built-in Settings item remains pinned at the bottom. -->
-                    <ScrollViewer Grid.Row="3"
-                                  VerticalScrollBarVisibility="Auto"
-                                  HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollMode="Auto">
-                        <ListView x:Name="ChatListView"
-                                  ItemsSource="{x:Bind ViewModel.Chats, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedChat, Mode=TwoWay}"
-                                  SelectionMode="Single"
-                                  SelectionChanged="ChatListView_SelectionChanged">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="Padding" Value="0"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="models:ChatItem">
-                                    <Grid Background="Transparent" Padding="12,0">
-                                        <Grid.ContextFlyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem Text="Rename"
-                                                                Click="RenameChat_Click"
-                                                                Icon="Edit"/>
-                                                <MenuFlyoutItem Text="{x:Bind PinLabel, Mode=OneWay}"
-                                                                Click="PinChat_Click"
-                                                                Icon="Pin"/>
-                                                <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Delete"
-                                                                Click="DeleteChat_Click"
-                                                                Icon="Delete"/>
-                                            </MenuFlyout>
-                                        </Grid.ContextFlyout>
+                    <!-- Scrollable chat list -->
+                    <ListView Grid.Row="4"
+                              x:Name="ChatListView"
+                              ItemsSource="{x:Bind ViewModel.Chats, Mode=OneWay}"
+                              SelectionMode="Single"
+                              ItemContainerStyle="{StaticResource SidebarListViewItemStyle}"
+                              SelectionChanged="ChatListView_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ChatItem">
+                                <Grid Background="Transparent" Padding="4,8"
+                                      RightTapped="ChatItem_RightTapped"
+                                      Holding="ChatItem_Holding">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE8BD;"
+                                                  FontSize="16"
+                                                  Margin="0,0,12,0"
+                                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
+                                        <TextBlock Text="{x:Bind Title, Mode=OneWay}"
+                                                   VerticalAlignment="Center"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <!-- Small pin indicator -->
+                                        <FontIcon Glyph="&#xE840;"
+                                                  FontSize="11"
+                                                  Margin="8,0,0,0"
+                                                  Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
+                                                  Visibility="{x:Bind IsPinned, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                                        <StackPanel Orientation="Horizontal" Padding="4,8">
-                                            <!-- Small pin indicator visible only when chat is pinned -->
-                                            <FontIcon Glyph="&#xE840;"
-                                                      FontSize="11"
-                                                      Margin="0,0,5,0"
-                                                      Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
-                                                      Visibility="{x:Bind IsPinned, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            <FontIcon Glyph="&#xE8BD;"
-                                                      FontSize="16"
-                                                      Margin="0,0,12,0"
-                                                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
-                                            <TextBlock Text="{x:Bind Title, Mode=OneWay}"
-                                                       VerticalAlignment="Center"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollViewer>
+                    <!-- Settings Footer Area -->
+                    <Grid Grid.Row="5" Margin="0,12,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Accent line for Settings -->
+                        <Rectangle x:Name="SettingsAccentIndicator"
+                                   Width="3" Height="24" 
+                                   Fill="{ThemeResource SystemControlHighlightAccentBrush}" 
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,0"
+                                   Visibility="Collapsed"/>
+                        
+                        <Button Grid.Column="1"
+                                x:Name="SettingsButton"
+                                Style="{StaticResource SidebarButtonStyle}"
+                                Click="SettingsButton_Click"
+                                HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE713;" FontSize="16" Margin="4,0,12,0"/>
+                                <TextBlock Text="Settings" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
                 </Grid>
-            </NavigationView.PaneCustomContent>
+            </SplitView.Pane>
 
-            <NavigationView.Content>
-                <Frame x:Name="ContentFrame"/>
-            </NavigationView.Content>
-        </NavigationView>
+            <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="BackButton"
+                            Content="&#xE72B;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="16"
+                            Width="48" Height="48"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BackButton_Click"
+                            HorizontalAlignment="Left"
+                            Margin="4,4,0,0"
+                            Visibility="Collapsed"/>
+                    <Frame Grid.Row="1" x:Name="ContentFrame"/>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
     </Grid>
 </Page>

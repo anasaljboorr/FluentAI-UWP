@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid x:Name="RootGrid" Padding="40,32,40,32">
+    <Grid x:Name="RootGrid" Margin="40,32,40,32">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="WideState">
@@ -20,7 +20,7 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootGrid.Padding" Value="16,24,16,24"/>
+                        <Setter Target="RootGrid.Margin" Value="16,24,16,24"/>
                         <Setter Target="SettingsHeader.Margin" Value="0,0,0,16"/>
                         <Setter Target="SettingsHeader.FontSize" Value="24"/>
                     </VisualState.Setters>
@@ -39,10 +39,10 @@
                    FontWeight="Light"
                    Margin="0,0,0,32"/>
 
-        <ScrollViewer Grid.Row="1">
-            <StackPanel Spacing="32">
+        <ScrollViewer Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">
+            <StackPanel>
                 <!-- Personalization Section -->
-                <StackPanel>
+                <StackPanel Margin="0,0,0,32">
                     <TextBlock Text="Personalization" 
                                Style="{StaticResource SubtitleTextBlockStyle}"
                                FontWeight="SemiBold"
@@ -57,10 +57,10 @@
                     </ComboBox>
                 </StackPanel>
 
-                <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}" Margin="0,0,0,32"/>
 
                 <!-- AI Models Section -->
-                <StackPanel>
+                <StackPanel Margin="0,0,0,32">
                     <TextBlock Text="AI Models" 
                                Style="{StaticResource SubtitleTextBlockStyle}"
                                FontWeight="SemiBold"
@@ -70,15 +70,14 @@
                                Margin="0,0,0,16"/>
 <ToggleSwitch x:Name="LocalModelsToggle" Header="Use Local Models (Ollama)" IsOn="False" Toggled="LocalModelsToggle_Toggled"/>
                     <TextBox x:Name="OllamaModelBox" Header="Ollama Model Name" PlaceholderText="qwen3:8b" Width="239" HorizontalAlignment="Left" Margin="0,12,0,0" TextChanged="OllamaModelBox_TextChanged"/>
-                    <PasswordBox x:Name="ApiKeyBox" Header="OpenAI API Key" PlaceholderText="sk-..." Width="239" HorizontalAlignment="Left" Margin="0,12,0,0" PasswordChanged="ApiKeyBox_PasswordChanged"/>
-                    
+
                     <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}" Margin="0,24,0,24"/>
                     
                     <ToggleSwitch x:Name="GeminiToggle" Header="Use Gemini API" IsOn="False" Toggled="GeminiToggle_Toggled"/>
                     <PasswordBox x:Name="GeminiApiKeyBox" Header="Gemini API Key" PlaceholderText="AIza..." Width="239" HorizontalAlignment="Left" Margin="0,12,0,0" PasswordChanged="GeminiApiKeyBox_PasswordChanged"/>
                 </StackPanel>
 
-                <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}" Margin="0,0,0,32"/>
 
                 <!-- About Section -->
                 <StackPanel>
@@ -86,7 +85,7 @@
                                Style="{StaticResource SubtitleTextBlockStyle}"
                                FontWeight="SemiBold"
                                Margin="0,0,0,12"/>
-                    <TextBlock Text="FluentAI v1.0.0" FontWeight="SemiBold"/>
+                    <TextBlock Text="FluentAI v1.2.0" FontWeight="SemiBold"/>
                     <TextBlock Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"><Run Foreground="White" Text="by Xiefn Yu"/></TextBlock>
                 </StackPanel>
             </StackPanel>

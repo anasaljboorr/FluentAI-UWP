@@ -145,5 +145,10 @@ namespace Project_FluentAI.Views
             var settings = Windows.Storage.ApplicationData.Current.LocalSettings;
             settings.Values["GeminiApiKey"] = GeminiApiKeyBox.Password;
         }
+
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+
+        }
     }
 }

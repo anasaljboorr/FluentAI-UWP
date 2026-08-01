@@ -3,13 +3,15 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Input;
+using Windows.UI.Core;
+using Windows.Foundation.Metadata;
+using Windows.UI.Xaml.Media;
 using Project_FluentAI.ViewModels;
 using Project_FluentAI.Views;
 using Project_FluentAI.Models;
 using Windows.Foundation;
-using Windows.ApplicationModel.Core;
 using Windows.UI;
-using Windows.UI.ViewManagement;
 
 namespace Project_FluentAI
 {
@@ -17,138 +19,202 @@ namespace Project_FluentAI
     {
         public MainViewModel ViewModel { get; set; }
 
+        private const double PhoneWidth = 640;
         private bool _isNavigating;
+        private bool _isPhoneLayout;
 
         public MainPage()
         {
             InitializeComponent();
 
-            // Set the custom drag region
-            Window.Current.SetTitleBar(AppTitleBar);
-            
-            // Listen for layout changes to adjust padding if needed
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateTitleBarLayout(s);
-
             ViewModel = new MainViewModel();
-
             ContentFrame.Navigate(typeof(ChatPage));
-            
-            // Initial theme setup for title bar buttons
-            UpdateTitleBarButtonColors();
-            this.ActualThemeChanged += (s, e) => UpdateTitleBarButtonColors();
-        }
+            Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
+            SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
 
-        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
-        {
-            // Adjust the padding columns to avoid overlapping with system buttons
-            LeftPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayLeftInset);
-            RightPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayRightInset);
-            AppTitleBar.Height = coreTitleBar.Height;
-        }
-
-        private void UpdateTitleBarButtonColors()
-        {
-            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            var isDark = this.ActualTheme == ElementTheme.Dark || 
-                        (this.ActualTheme == ElementTheme.Default && Application.Current.RequestedTheme == ApplicationTheme.Dark);
-
-            if (isDark)
+            UpdateSidebarBackground();
+            if (ApiInformation.IsEventPresent("Windows.UI.Xaml.FrameworkElement", "ActualThemeChanged"))
             {
-                titleBar.ButtonForegroundColor = Colors.White;
-                titleBar.ButtonHoverForegroundColor = Colors.White;
-                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(25, 255, 255, 255);
-                titleBar.ButtonPressedForegroundColor = Colors.White;
-                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(51, 255, 255, 255);
-                
-                titleBar.ButtonInactiveForegroundColor = Colors.Gray;
+                this.ActualThemeChanged += (s, e) => UpdateSidebarBackground();
+            }
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateShellLayout(ActualWidth);
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateShellLayout(e.NewSize.Width);
+        }
+
+        private void UpdateShellLayout(double width)
+        {
+            _isPhoneLayout = width <= PhoneWidth;
+            ShellSplitView.DisplayMode = _isPhoneLayout ? SplitViewDisplayMode.Overlay : SplitViewDisplayMode.Inline;
+            ShellSplitView.IsPaneOpen = _isPhoneLayout ? !HasDetailOpen() : true;
+            
+            // On mobile, sidebar should cover the whole screen
+            ShellSplitView.OpenPaneLength = _isPhoneLayout ? width : 300;
+
+            BackButton.Visibility = _isPhoneLayout && HasDetailOpen() ? Visibility.Visible : Visibility.Collapsed;
+            
+            // Custom title bar is only for Desktop.
+            AppTitleBar.Visibility = _isPhoneLayout ? Visibility.Collapsed : Visibility.Visible;
+
+            // In compact/phone mode, hide some sidebar elements
+            HamburgerButton.Visibility = _isPhoneLayout ? Visibility.Visible : Visibility.Visible; // Always show for now
+            
+            // Update settings indicator
+            SettingsAccentIndicator.Visibility = ContentFrame.Content is SettingsPage ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void UpdateSidebarBackground()
+        {
+            bool isDark = false;
+            if (ApiInformation.IsPropertyPresent("Windows.UI.Xaml.FrameworkElement", "ActualTheme"))
+            {
+                isDark = this.ActualTheme == ElementTheme.Dark || 
+                         (this.ActualTheme == ElementTheme.Default && Application.Current.RequestedTheme == ApplicationTheme.Dark);
             }
             else
             {
-                titleBar.ButtonForegroundColor = Colors.Black;
-                titleBar.ButtonHoverForegroundColor = Colors.Black;
-                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(25, 0, 0, 0);
-                titleBar.ButtonPressedForegroundColor = Colors.Black;
-                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(51, 0, 0, 0);
-                
-                titleBar.ButtonInactiveForegroundColor = Colors.LightGray;
+                // Fallback for older Windows 10 versions (including Mobile)
+                isDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
             }
-        }
 
-        private void NavView_ItemInvoked(
-            NavigationView sender,
-            NavigationViewItemInvokedEventArgs args)
-        {
-            if (args.IsSettingsInvoked)
+            Color backgroundColor = isDark ? Color.FromArgb(255, 30, 30, 30) : Color.FromArgb(255, 255, 255, 255);
+            Color tintColor = isDark ? Color.FromArgb(255, 10, 10, 10) : Color.FromArgb(255, 255, 255, 255);
+            
+            // Apply Solid fallback first
+            SidebarRoot.Background = new SolidColorBrush(backgroundColor);
+
+            // Apply Acrylic if supported and not on mobile (HostBackdrop is Desktop-only)
+            if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush") && 
+                Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
             {
-                NavigateToSettings();
+                SidebarRoot.Background = new AcrylicBrush
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintColor = tintColor,
+                    TintOpacity = isDark ? 0.8 : 0.6,
+                    FallbackColor = backgroundColor
+                };
             }
         }
 
-        private void NavigateToSettings()
+        private bool HasDetailOpen()
         {
-            if (_isNavigating)
-                return;
+            return ContentFrame.Content is SettingsPage || ViewModel.SelectedChat != null;
+        }
 
-            _isNavigating = true;
-
+        private void ShowSidebar()
+        {
+            if (!_isPhoneLayout) return;
             ChatListView.SelectedItem = null;
+            ViewModel.SelectedChat = null;
+            ShellSplitView.IsPaneOpen = true;
+            BackButton.Visibility = Visibility.Collapsed;
 
-            ContentFrame.Navigate(typeof(SettingsPage));
-
-            _isNavigating = false;
+            // Ensure sidebar background is maintained
+            UpdateSidebarBackground();
         }
 
-        private void ChatListView_SelectionChanged(
-            object sender,
-            SelectionChangedEventArgs e)
+        private void OpenDetail(Type page, object parameter = null)
         {
-            if (_isNavigating)
-                return;
+            _isNavigating = true;
+            ContentFrame.Navigate(page, parameter);
+            _isNavigating = false;
+            
+            // Update settings indicator
+            SettingsAccentIndicator.Visibility = page == typeof(SettingsPage) ? Visibility.Visible : Visibility.Collapsed;
 
-            if (ChatListView.SelectedItem != null)
+            // Ensure sidebar background is maintained during navigation
+            UpdateSidebarBackground();
+
+            if (_isPhoneLayout)
             {
-                _isNavigating = true;
-
-                ContentFrame.Navigate(
-                    typeof(ChatPage),
-                    ChatListView.SelectedItem);
-
-                _isNavigating = false;
+                ShellSplitView.IsPaneOpen = false;
+                BackButton.Visibility = Visibility.Visible;
             }
         }
 
-        private void NavView_DisplayModeChanged(
-            NavigationView sender,
-            NavigationViewDisplayModeChangedEventArgs args)
+        private void BackRequested(object sender, BackRequestedEventArgs e)
         {
-            bool compact =
-                args.DisplayMode == NavigationViewDisplayMode.Compact ||
-                args.DisplayMode == NavigationViewDisplayMode.Minimal;
-
-            ChatSearchBox.Visibility =
-                compact ? Visibility.Collapsed : Visibility.Visible;
-
-            ChatsHeader.Visibility =
-                compact ? Visibility.Collapsed : Visibility.Visible;
-
-            ChatListView.Visibility =
-                compact ? Visibility.Collapsed : Visibility.Visible;
+            if (_isPhoneLayout && !ShellSplitView.IsPaneOpen)
+            {
+                e.Handled = true;
+                ShowSidebar();
+            }
         }
 
-        private void NewChatButton_Tapped(
+        private void BackButton_Click(object sender, RoutedEventArgs e) => ShowSidebar();
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChatListView.SelectedItem = null;
+            OpenDetail(typeof(SettingsPage));
+        }
+
+        private void ChatListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_isNavigating && ChatListView.SelectedItem is ChatItem chat)
+            {
+                ViewModel.SelectedChat = chat;
+                OpenDetail(typeof(ChatPage), chat);
+            }
+        }
+
+        private void NewChatButton_Click(
             object sender,
-            TappedRoutedEventArgs e)
+            RoutedEventArgs e)
         {
             ViewModel.CreateNewChat();
             if (ViewModel.SelectedChat != null)
             {
-                ContentFrame.Navigate(typeof(ChatPage), ViewModel.SelectedChat);
+                OpenDetail(typeof(ChatPage), ViewModel.SelectedChat);
             }
         }
 
         private void ChatSearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             ViewModel.SearchText = sender.Text;
+        }
+
+        private void ChatItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            ShowChatMenu(sender as FrameworkElement);
+        }
+
+        private void ChatItem_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == HoldingState.Started)
+            {
+                ShowChatMenu(sender as FrameworkElement);
+                e.Handled = true;
+            }
+        }
+
+        private void ShowChatMenu(FrameworkElement target)
+        {
+            var chat = target?.DataContext as ChatItem;
+            if (chat == null) return;
+
+            var menu = new MenuFlyout();
+            var rename = new MenuFlyoutItem { Text = "Rename", DataContext = chat };
+            rename.Click += RenameChat_Click;
+            var pin = new MenuFlyoutItem { Text = chat.PinLabel, DataContext = chat };
+            pin.Click += PinChat_Click;
+            var delete = new MenuFlyoutItem { Text = "Delete", DataContext = chat };
+            delete.Click += DeleteChat_Click;
+
+            menu.Items.Add(rename);
+            menu.Items.Add(pin);
+            menu.Items.Add(new MenuFlyoutSeparator());
+            menu.Items.Add(delete);
+            menu.ShowAt(target);
         }
 
         // ── Context-menu handlers ─────────────────────────────────────────────
@@ -208,6 +274,7 @@ namespace Project_FluentAI
             {
                 ViewModel.DeleteChat(chat);
                 ContentFrame.Navigate(typeof(ChatPage)); // Reset view
+                ShowSidebar();
             }
         }
     }

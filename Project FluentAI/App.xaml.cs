@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
+using Windows.System.Profile;
 
 namespace Project_FluentAI
 {
@@ -80,16 +81,19 @@ namespace Project_FluentAI
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
 
-                // Extend view into title bar
-                var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-                coreTitleBar.ExtendViewIntoTitleBar = true;
+                // Phone does not have a desktop title bar. Keep this enhancement
+                // on desktop only so Mobile startup uses only supported APIs.
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                {
+                    var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+                    coreTitleBar.ExtendViewIntoTitleBar = true;
 
-                // Customize title bar to be transparent
-                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                titleBar.BackgroundColor = Colors.Transparent;
-                titleBar.InactiveBackgroundColor = Colors.Transparent;
-                titleBar.ButtonBackgroundColor = Colors.Transparent;
-                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    titleBar.BackgroundColor = Colors.Transparent;
+                    titleBar.InactiveBackgroundColor = Colors.Transparent;
+                    titleBar.ButtonBackgroundColor = Colors.Transparent;
+                    titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                }
             }
 
             if (e.PrelaunchActivated == false)

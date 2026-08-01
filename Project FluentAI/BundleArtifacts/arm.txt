@@ -1,0 +1,6 @@
+MainPackage=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\ARM\Release\Project FluentAI_1.2.0.0_ARM.appx
+SymbolPackage=C:\Users\Xiefn Yu\Downloads\Project FluentAI_1.2.0.0_Test\Project FluentAI_1.2.0.0_ARM.appxsym
+ResourcePack=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\ARM\Release\Project FluentAI_1.2.0.0_scale-100.appx
+ResourcePack=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\ARM\Release\Project FluentAI_1.2.0.0_scale-125.appx
+ResourcePack=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\ARM\Release\Project FluentAI_1.2.0.0_scale-150.appx
+ResourcePack=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\ARM\Release\Project FluentAI_1.2.0.0_scale-400.appx

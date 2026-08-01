@@ -1,13 +1,17 @@
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Input;
 using Windows.UI.Xaml.Navigation;
-using Project_FluentAI.Models;
-using Project_FluentAI.ViewModels;
+using Windows.UI.Xaml.Media;
+using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.ApplicationModel.DataTransfer;
 using System.ComponentModel;
+using Project_FluentAI.Models;
+using Project_FluentAI.ViewModels;
 
 namespace Project_FluentAI.Views
 {
@@ -23,6 +27,48 @@ namespace Project_FluentAI.Views
         public ChatPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Wire up PreviewKeyDown in code-behind to avoid the XAML compiler 
+            // generating an incompatible cast to IUIElement7 on older Windows versions.
+            // PreviewKeyDown is available since Build 16299 (1709).
+            if (ApiInformation.IsEventPresent("Windows.UI.Xaml.UIElement", "PreviewKeyDown"))
+            {
+                InputBox.PreviewKeyDown += InputBox_PreviewKeyDown;
+            }
+            else
+            {
+                // Fallback for even older versions (original Windows 10 Mobile)
+                InputBox.KeyDown += InputBox_PreviewKeyDown;
+            }
+
+            UpdateInputBarTheme();
+            if (ApiInformation.IsEventPresent("Windows.UI.Xaml.FrameworkElement", "ActualThemeChanged"))
+            {
+                this.ActualThemeChanged += (s, ev) => UpdateInputBarTheme();
+            }
+        }
+
+        private void UpdateInputBarTheme()
+        {
+            bool isDark = false;
+            if (ApiInformation.IsPropertyPresent("Windows.UI.Xaml.FrameworkElement", "ActualTheme"))
+            {
+                isDark = this.ActualTheme == ElementTheme.Dark || 
+                         (this.ActualTheme == ElementTheme.Default && Application.Current.RequestedTheme == ApplicationTheme.Dark);
+            }
+            else
+            {
+                isDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            }
+
+            // Cortana-style bar background: Dark Gray in Dark mode, Light Gray in Light mode
+            // Cortana-style bar background: Dark Gray in Dark mode, Very Light Gray/White in Light mode
+            InputBarBackground.Background = isDark 
+                ? new SolidColorBrush(Color.FromArgb(255, 38, 38, 38)) 
+                : new SolidColorBrush(Color.FromArgb(255, 242, 242, 242));
         }
 
         // ── Navigation ────────────────────────────────────────────────────────
@@ -84,15 +130,16 @@ namespace Project_FluentAI.Views
             SendMessage();
         }
 
-        private void InputBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void InputBox_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                var shiftState = Window.Current.CoreWindow.GetKeyState(VirtualKey.Shift);
+                var shiftState = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
                 bool isShiftDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
 
                 if (!isShiftDown)
                 {
+                    // Mark as handled to prevent the TextBox from adding a newline
                     e.Handled = true;
                     SendMessage();
                 }
@@ -101,8 +148,14 @@ namespace Project_FluentAI.Views
 
         private void SendMessage()
         {
-            if (ViewModel != null && _currentChat != null && !string.IsNullOrWhiteSpace(InputBox.Text))
+            if (ViewModel != null && _currentChat != null)
             {
+                // If the textbox is empty or contains only whitespace, do nothing.
+                if (string.IsNullOrWhiteSpace(InputBox.Text))
+                {
+                    return;
+                }
+
                 // Ensure ViewModel's SelectedChat matches our current chat
                 ViewModel.SelectedChat = _currentChat;
 
@@ -120,6 +173,36 @@ namespace Project_FluentAI.Views
         }
 
         // ── Message context-menu handlers ─────────────────────────────────────
+
+        private void Message_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            ShowMessageMenu(sender as FrameworkElement);
+        }
+
+        private void Message_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == HoldingState.Started)
+            {
+                ShowMessageMenu(sender as FrameworkElement);
+                e.Handled = true;
+            }
+        }
+
+        private void ShowMessageMenu(FrameworkElement target)
+        {
+            var message = target?.DataContext as Message;
+            if (message == null) return;
+
+            var menu = new MenuFlyout();
+            var copy = new MenuFlyoutItem { Text = "Copy Message", DataContext = message };
+            copy.Click += CopyMessage_Click;
+            var delete = new MenuFlyoutItem { Text = "Delete Message", DataContext = message };
+            delete.Click += DeleteMessage_Click;
+            menu.Items.Add(copy);
+            menu.Items.Add(new MenuFlyoutSeparator());
+            menu.Items.Add(delete);
+            menu.ShowAt(target);
+        }
 
         /// <summary>Copies the message text to the clipboard.</summary>
         private void CopyMessage_Click(object sender, RoutedEventArgs e)

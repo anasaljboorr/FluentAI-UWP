@@ -18,8 +18,24 @@ namespace Project_FluentAI.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private static readonly HttpClient _httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+        private static readonly Random _random = new Random();
         private readonly WindowsAgentService _windowsAgent = new WindowsAgentService();
         private readonly InterpreterService _interpreter = new InterpreterService();
+
+        private readonly string[] _thinkingMessages = new[]
+        {
+            "One sec...",
+            "Let me think...",
+            "Almost there...",
+            "Hang tight...",
+            "Just a moment...",
+            "Working on it ;) ..."
+        };
+
+        private string GetRandomThinkingMessage()
+        {
+            return _thinkingMessages[_random.Next(_thinkingMessages.Length)];
+        }
 
         private const string SYSTEM_PROMPT = @"You are FluentAI, a Windows 10-inspired desktop AI assistant created by Xiefn.
 
@@ -131,7 +147,7 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
             else
             {
                 source = _allChats.Where(c =>
-                    c.Title.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+                    c.Title.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             var sorted = SortedChats(source).ToList();
@@ -215,7 +231,7 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
                 System.Diagnostics.Debug.WriteLine("[Send] Proceeding to Gemini response");
                 
                 // Add typing indicator
-                var typingIndicator = new Message { Content = "Working on it ;) ...", IsUser = false };
+                var typingIndicator = new Message { Content = GetRandomThinkingMessage(), IsUser = false };
                 targetChat.Messages.Add(typingIndicator);
 
                 await GetGeminiResponse(targetChat, typingIndicator, geminiKey);
@@ -229,7 +245,7 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
                     System.Diagnostics.Debug.WriteLine("[Send] Proceeding to Ollama/Interpreter response");
 
                     // Add typing indicator
-                    var typingIndicator = new Message { Content = "Working on it ;) ...", IsUser = false };
+                    var typingIndicator = new Message { Content = GetRandomThinkingMessage(), IsUser = false };
                     targetChat.Messages.Add(typingIndicator);
 
                     // If it's a complex task, InterpreterService will handle it (via Ollama)
@@ -301,8 +317,8 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var geminiRes = JsonConvert.DeserializeObject<dynamic>(responseBody);
-                    string fullText = (string)geminiRes.candidates[0].content.parts[0].text;
+                    var geminiRes = JsonConvert.DeserializeObject<GeminiResponse>(responseBody);
+                    string fullText = geminiRes.Candidates[0].Content.Parts[0].Text;
                     string responseText = fullText.Trim();
 
                     System.Diagnostics.Debug.WriteLine($"[Gemini] Assistant response received: {responseText}");
@@ -368,8 +384,8 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var ollamaRes = JsonConvert.DeserializeObject<dynamic>(responseBody);
-                    string fullText = (string)ollamaRes.message.content;
+                    var ollamaRes = JsonConvert.DeserializeObject<OllamaResponse>(responseBody);
+                    string fullText = ollamaRes.Message.Content;
 
                     // Filter thinking/reasoning text (usually inside <think> tags)
                     string filteredText = Regex.Replace(fullText, @"<think>[\s\S]*?<\/think>", "").Trim();
@@ -460,5 +476,43 @@ Your goal is to feel like a friendly desktop assistant that lives inside FluentA
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+    }
+
+    // ── Gemini API DTOs ───────────────────────────────────────────────────
+    public class GeminiResponse
+    {
+        [JsonProperty("candidates")]
+        public List<GeminiCandidate> Candidates { get; set; }
+    }
+
+    public class GeminiCandidate
+    {
+        [JsonProperty("content")]
+        public GeminiContent Content { get; set; }
+    }
+
+    public class GeminiContent
+    {
+        [JsonProperty("parts")]
+        public List<GeminiPart> Parts { get; set; }
+    }
+
+    public class GeminiPart
+    {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+    }
+
+    // ── Ollama API DTOs ───────────────────────────────────────────────────
+    public class OllamaResponse
+    {
+        [JsonProperty("message")]
+        public OllamaMessage Message { get; set; }
+    }
+
+    public class OllamaMessage
+    {
+        [JsonProperty("content")]
+        public string Content { get; set; }
     }
 }

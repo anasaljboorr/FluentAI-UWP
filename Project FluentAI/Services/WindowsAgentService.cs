@@ -230,32 +230,15 @@ namespace Project_FluentAI.Services
                     return success;
                 }
 
-                // For EXEs and MSCs, we use Process.Start with UseShellExecute = true
-                // Note: UWP apps have significant restrictions on Process.Start.
-                // In a standard UWP sandbox, this may fail unless the app has specific capabilities.
-                // We provide the implementation as requested.
-                
-                Debug.WriteLine($"[WindowsAgent] Launching via Process.Start: {command}");
-                
-                var startInfo = new ProcessStartInfo
-                {
-                    FileName = command,
-                    UseShellExecute = true,
-                    CreateNoWindow = false
-                };
-
-                using (var process = Process.Start(startInfo))
-                {
-                    bool success = process != null;
-                    Debug.WriteLine($"[WindowsAgent] Process.Start Result: {success}");
-                    return success;
-                }
+                // Process.Start is not permitted by the UWP sandbox and is absent
+                // on Windows 10 Mobile. Use known URI activations instead.
+                return await TryUriFallback(command);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"[WindowsAgent] EXECUTION ERROR for '{command}': {ex.Message}");
                 
-                // Fallback: If Process.Start fails (common in UWP), try mapping to a URI if possible
+                // Retry using a URI when the activation itself fails.
                 return await TryUriFallback(command);
             }
         }
@@ -267,7 +250,7 @@ namespace Project_FluentAI.Services
             else if (command.Equals("calc.exe", StringComparison.OrdinalIgnoreCase)) uri = "ms-calculator:";
             else if (command.Equals("mspaint.exe", StringComparison.OrdinalIgnoreCase)) uri = "ms-paint:";
             else if (command.Equals("control.exe", StringComparison.OrdinalIgnoreCase)) uri = "ms-settings:";
-            else if (command.Equals("explorer.exe", StringComparison.OrdinalIgnoreCase)) uri = "file:";
+            else if (command.Equals("explorer.exe", StringComparison.OrdinalIgnoreCase)) uri = "ms-settings:";
 
             if (uri != null)
             {

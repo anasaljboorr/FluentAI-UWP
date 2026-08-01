@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x86\Release\Project FluentAI_1.2.0.0_x86.appx
+SymbolPackage=C:\Users\Xiefn Yu\Downloads\Project FluentAI_1.2.0.0_Test\Project FluentAI_1.2.0.0_x86.appxsym

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DeviceId>30f105c9-681e-420b-a277-7c086ead8a4e</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x86|x64|arm</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <AppxPackageIsForStore>False</AppxPackageIsForStore>
+    <Source>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</Source>
+    <SmallTileSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</SmallTileSource>
+    <MediumTileSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</MediumTileSource>
+    <WideTileSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</WideTileSource>
+    <LargeTileSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</LargeTileSource>
+    <AppIconSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</AppIconSource>
+    <SplashScreenSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</SplashScreenSource>
+    <BadgeLogoSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</BadgeLogoSource>
+    <PackageLogoSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</PackageLogoSource>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <UseSimulator>true</UseSimulator>
+    <DeviceId>30f105c9-681e-420b-a277-7c086ead8a4e</DeviceId>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <UseEmulator>false</UseEmulator>
+    <RemoteDebugMachine>Windows-Phone</RemoteDebugMachine>
+    <AuthenticationMode>Windows</AuthenticationMode>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <RemoteDebugMachine>Windows-Phone</RemoteDebugMachine>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+    <DeviceId>FCE1E487-5138-486A-AB00-21F191ED3F3B</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+</Project>
