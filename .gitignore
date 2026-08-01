@@ -1,0 +1,15 @@
+@"
+.vs/
+bin/
+obj/
+**/bin/
+**/obj/
+
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+AppPackages/
+TestResults/
+"@ | Out-File .gitignore -Encoding utf8
