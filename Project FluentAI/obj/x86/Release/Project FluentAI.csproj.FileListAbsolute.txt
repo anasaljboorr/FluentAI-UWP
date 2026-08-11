@@ -192,7 +192,6 @@ C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x86\Release\System.
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x86\Release\System.Xml.XDocument.dll
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x86\Release\System.Xml.XmlDocument.dll
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x86\Release\System.Xml.XmlSerializer.dll
-C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x86\Release\Project FluentAI.csprojAssemblyReference.cache
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x86\Release\App.g.i.cs
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x86\Release\App.g.cs
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x86\Release\MainPage.g.i.cs

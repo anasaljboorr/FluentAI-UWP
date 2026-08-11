@@ -130,7 +130,6 @@ C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x64\Debug\System.Xm
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x64\Debug\System.Xml.XDocument.dll
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x64\Debug\System.Xml.XmlDocument.dll
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\bin\x64\Debug\System.Xml.XmlSerializer.dll
-C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\Project FluentAI.csproj.AssemblyReference.cache
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\App.g.i.cs
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\App.g.cs
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\MainPage.g.i.cs
@@ -237,3 +236,4 @@ C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\qualifier
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\qualifiers.txt.intermediate
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\ProjectArchitectures.txt
+C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Debug\Project FluentAI.csprojAssemblyReference.cache

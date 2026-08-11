@@ -565,3 +565,4 @@ C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Release\ilc\int
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Release\ilc\intermediate\TransformedSRWR\System.Runtime.WindowsRuntime.dll
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Release\ilc\intermediate\TransformedSRWR\System.Runtime.WindowsRuntime.dll.ILTransformTask.repro
 C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Release\ilc\intermediate\TransformedSRWR\System.Runtime.WindowsRuntime.pdb
+C:\Users\Xiefn Yu\source\repos\FluentAI\Project FluentAI\obj\x64\Release\Project FluentAI.csprojAssemblyReference.cache

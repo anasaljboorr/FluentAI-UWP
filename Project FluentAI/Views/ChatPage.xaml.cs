@@ -44,10 +44,15 @@ namespace Project_FluentAI.Views
                 InputBox.KeyDown += InputBox_PreviewKeyDown;
             }
 
+            UpdateChatBackground();
             UpdateInputBarTheme();
             if (ApiInformation.IsEventPresent("Windows.UI.Xaml.FrameworkElement", "ActualThemeChanged"))
             {
-                this.ActualThemeChanged += (s, ev) => UpdateInputBarTheme();
+                this.ActualThemeChanged += (s, ev) =>
+                {
+                    UpdateChatBackground();
+                    UpdateInputBarTheme();
+                };
             }
         }
 
@@ -213,6 +218,50 @@ namespace Project_FluentAI.Views
             var dataPackage = new DataPackage();
             dataPackage.SetText(message.Content);
             Clipboard.SetContent(dataPackage);
+        }
+
+        ///Acrylic background 
+        private void UpdateChatBackground()
+        {
+            bool isDark = false;
+
+            if (ApiInformation.IsPropertyPresent(
+                "Windows.UI.Xaml.FrameworkElement", "ActualTheme"))
+            {
+                isDark = this.ActualTheme == ElementTheme.Dark ||
+                         (this.ActualTheme == ElementTheme.Default &&
+                          Application.Current.RequestedTheme == ApplicationTheme.Dark);
+            }
+            else
+            {
+                isDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            }
+
+            Color backgroundColor = isDark
+                ? Color.FromArgb(255, 0, 0, 0)
+                : Color.FromArgb(255, 255, 255, 255);
+
+            Color tintColor = isDark
+                ? Color.FromArgb(255, 10, 10, 10)
+                : Color.FromArgb(255, 255, 255, 255);
+
+            // Always have a fallback for older Windows versions.
+            RootGrid.Background = new SolidColorBrush(backgroundColor);
+
+            // Use Acrylic when the API is available.
+            if (ApiInformation.IsTypePresent(
+                    "Windows.UI.Xaml.Media.AcrylicBrush") &&
+                Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily
+                    == "Windows.Desktop")
+            {
+                RootGrid.Background = new AcrylicBrush
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintColor = tintColor,
+                    TintOpacity = isDark ? 0.82 : 0.65,
+                    FallbackColor = backgroundColor
+                };
+            }
         }
 
         /// <summary>Removes the message from the current chat and persists the change.</summary>

@@ -10,7 +10,7 @@
   <Identity Name="5f98d766-3ce5-42f4-8be2-8baa1dff8d67" Publisher="CN=Xiefn Yu" Version="1.2.0.0" ProcessorArchitecture="arm" />
   <mp:PhoneIdentity PhoneProductId="5f98d766-3ce5-42f4-8be2-8baa1dff8d67" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Project FluentAI</DisplayName>
+    <DisplayName>FluentAI</DisplayName>
     <PublisherDisplayName>Xiefn Yu</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

@@ -39,7 +39,7 @@
                    FontWeight="Light"
                    Margin="0,0,0,32"/>
 
-        <ScrollViewer Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">
+        <ScrollViewer Grid.Row="1">
             <StackPanel>
                 <!-- Personalization Section -->
                 <StackPanel Margin="0,0,0,32">
@@ -70,7 +70,8 @@
                                Margin="0,0,0,16"/>
 <ToggleSwitch x:Name="LocalModelsToggle" Header="Use Local Models (Ollama)" IsOn="False" Toggled="LocalModelsToggle_Toggled"/>
                     <TextBox x:Name="OllamaModelBox" Header="Ollama Model Name" PlaceholderText="qwen3:8b" Width="239" HorizontalAlignment="Left" Margin="0,12,0,0" TextChanged="OllamaModelBox_TextChanged"/>
-
+                    <PasswordBox x:Name="ApiKeyBox" Header="OpenAI API Key" PlaceholderText="sk-..." Width="239" HorizontalAlignment="Left" Margin="0,12,0,0" PasswordChanged="ApiKeyBox_PasswordChanged"/>
+                    
                     <Rectangle Height="1" Fill="{ThemeResource SystemControlBackgroundBaseLowBrush}" Margin="0,24,0,24"/>
                     
                     <ToggleSwitch x:Name="GeminiToggle" Header="Use Gemini API" IsOn="False" Toggled="GeminiToggle_Toggled"/>

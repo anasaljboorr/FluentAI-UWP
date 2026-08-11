@@ -10,7 +10,7 @@
   <Identity Name="5f98d766-3ce5-42f4-8be2-8baa1dff8d67" Publisher="CN=Xiefn Yu" Version="1.2.0.0" ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="5f98d766-3ce5-42f4-8be2-8baa1dff8d67" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Project FluentAI</DisplayName>
+    <DisplayName>FluentAI</DisplayName>
     <PublisherDisplayName>Xiefn Yu</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -44,7 +44,7 @@
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v5.0" />
     <build:Item Name="VisualStudio" Version="15.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2017" />
-    <build:Item Name="OperatingSystem" Version="10.0.26100.1 (WinBuild.160101.0800)" />
+    <build:Item Name="OperatingSystem" Version="10.0.19041.1 (WinBuild.160101.0800)" />
     <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="15.0.35706.147" />
     <build:Item Name="ProjectGUID" Value="{8C8ECE27-A5A7-4C3B-9F70-74205E03B921}" />
     <build:Item Name="ilc.exe" Version="1.7.27420.00 built by: PROJECTNGDR2" />

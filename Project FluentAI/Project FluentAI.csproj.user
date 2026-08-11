@@ -8,7 +8,7 @@
     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x86|x64|arm</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <Source>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</Source>
     <SmallTileSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</SmallTileSource>
@@ -21,7 +21,7 @@
     <PackageLogoSource>C:\Users\Xiefn Yu\Downloads\FluentAILogo %281%29.png</PackageLogoSource>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <UseSimulator>true</UseSimulator>
+    <UseSimulator>false</UseSimulator>
     <DeviceId>30f105c9-681e-420b-a277-7c086ead8a4e</DeviceId>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <UseEmulator>false</UseEmulator>
